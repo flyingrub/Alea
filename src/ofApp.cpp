@@ -28,9 +28,11 @@ void ofApp::setup(){
 
 	smoothedVol     = 0.0;
 	scaledVol		= 0.0;
+	smoothedVolBass = 0.0;
+	scaledVolBass	= 0.0;
 
 	decayRate = 0.05;
-	minThreshold = ofMap(0.1, 0.0, 1.0, 0.0, 0.17, true);
+	minThreshold = ofMap(0.05, 0.0, 1.0, 0.0, 0.17, true);
 	threshold = minThreshold;
 	scaledThreshold = minThreshold;
 	hold = 0;
@@ -43,6 +45,7 @@ void ofApp::setup(){
 void ofApp::update(){
 	//lets scale the vol up to a 0-1 range 
 	scaledVol = ofMap(smoothedVol, 0.0, 0.17, 0.0, 1.0, true);
+	scaledVolBass = ofMap(smoothedVolBass, 0.0, 0.17, 0.0, 1.0, true);
 	scaledThreshold = ofMap(threshold, 0.0, 0.17, 0.0, 1.0, true);
 
 	//lets record the volume into an array
@@ -58,7 +61,9 @@ void ofApp::update(){
 void ofApp::draw(){
 	
 	ofNoFill();
-	ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
+
+	ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 32, 20);
+
 	// draw the left channel:
 	ofPushStyle();
 		ofPushMatrix();
@@ -70,7 +75,7 @@ void ofApp::draw(){
 		ofSetLineWidth(1);	
 		ofRect(0, 0, 512, 200);
 
-		ofSetColor(245, 58, 135);
+		ofSetColor(41, 182, 246);
 		ofSetLineWidth(3);
 					
 			ofBeginShape();
@@ -93,7 +98,7 @@ void ofApp::draw(){
 		ofSetLineWidth(1);	
 		ofRect(0, 0, 512, 200);
 
-		ofSetColor(245, 58, 135);
+		ofSetColor(41, 182, 246);
 		ofSetLineWidth(3);
 					
 			ofBeginShape();
@@ -111,7 +116,7 @@ void ofApp::draw(){
 		ofTranslate(32, 500, 0);
 		ofRect(0, 0, 912, 200);
 		
-		ofSetColor(245, 58, 135);
+		ofSetColor(41, 182, 246);
 		//ofDrawBitmapString("history: " + ofToString(volHistory), 32, 20);
 
 		ofFill();
@@ -136,14 +141,18 @@ void ofApp::draw(){
 			
 		ofSetColor(225);
 		ofDrawBitmapString("average vol (0-100): " + ofToString(scaledVol * 100.0, 0), 32, 20);
-		ofDrawBitmapString("threshold (0-100): " + ofToString(scaledThreshold * 100.0, 0), 32, 40);
-		ofDrawBitmapString("canbeat: " + ofToString(canBeat), 32, 60);
+		ofDrawBitmapString("average BAss vol (0-100): " + ofToString(scaledVolBass * 100.0, 0), 32, 40);
+		ofDrawBitmapString("threshold (0-100): " + ofToString(scaledThreshold * 100.0, 0), 32, 60);
+		ofDrawBitmapString("canbeat: " + ofToString(canBeat), 32, 80);
 		ofRect(0, 0, 400, 400);
 		
-		ofSetColor(245, 58, 135);
+		ofSetColor(41, 182, 246);
 		ofFill();
-		ofSetLineWidth(1);
-		ofCircle(200, 200, scaledVol * 190.0f);
+		ofCircle(200, 200, scaledVol * 200.0f);
+
+		ofSetColor(52, 52, 52);
+		ofFill();
+		ofCircle(200, 200, scaledVol * 150.0f);
 
 		ofPopMatrix();
 	ofPopStyle();
@@ -153,6 +162,7 @@ void ofApp::draw(){
 void ofApp::audioIn(float * input, int bufferSize, int nChannels){	
 	
 	float curVol = 0.0;
+	float curBass = 0.0;
 	
 	// samples are "interleaved"
 	int numCounted = 0;	
@@ -164,17 +174,26 @@ void ofApp::audioIn(float * input, int bufferSize, int nChannels){
 
 		curVol += left[i] * left[i];
 		curVol += right[i] * right[i];
+		if (i <= 10) {
+			curBass += left[i] * left[i];
+			curBass += right[i] * right[i];
+		}
 		numCounted+=2;
 	}
 	
 	//this is how we get the mean of rms :) 
 	curVol /= (float)numCounted;
+	curBass /= 10.0;
 	
 	// this is how we get the root of rms :) 
 	curVol = sqrt( curVol );
+	curBass = sqrt( curBass );
 	
 	smoothedVol *= 0.93;
 	smoothedVol += 0.07 * curVol;
+
+	smoothedVolBass *= 0.95;
+	smoothedVolBass += 0.05 * curBass;
 
 
 	// BEAT DETECTION

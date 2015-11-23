@@ -33,6 +33,9 @@ class ofApp : public ofBaseApp{
 		float smoothedVol;
 		float scaledVol;
 
+		float smoothedVolBass;
+		float scaledVolBass;
+
 		float decayRate;
 		float minThreshold;
 		float threshold;
