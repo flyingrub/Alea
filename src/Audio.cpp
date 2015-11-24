@@ -12,6 +12,10 @@ Audio::Audio() {
 			freq[i][j] = 0;
 		}
 	}
+	volume.setRange(0.0, 0.17);
+	bass.setRange(0, 30);
+	mid.setRange(-20, 20);
+	high.setRange(-30, 5);
 }
 
 void Audio::update(float * input, int bufferSize) {
@@ -34,14 +38,46 @@ void Audio::update(float * input, int bufferSize) {
 	curVol /= (float)numCounted;
 	curVol = sqrt( curVol );
 	volume.update(curVol);
-	bass.update(magnitude[1]);
 }
 
 
 void Audio::calc() {
 	float avg_power = 0.0f;
+	float bass_amount = 0;
+	float mid_amount = 0;
+	float high_amount = 0.0f;
+	int bass_count = 0;
+	int mid_count = 0;
+	int high_count = 0;
+
 	myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, data,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
 	
+
+	for (int i = 1; i < (int)(BUFFER_SIZE/2); i++){
+		if (i < 3) {
+			bass_amount += magnitude[i];
+			bass_count ++;
+		} else if (i < (int)(BUFFER_SIZE/6)) {
+			mid_amount += magnitude[i];
+			mid_count++;
+		} else {
+			high_amount += magnitude[i];
+			high_count++;
+		}
+	}
+
+	bass_amount /= bass_count;
+	mid_amount /= mid_count;
+	high_amount /= high_count;
+
+	bass_amount = toDB(bass_amount);
+	mid_amount = toDB(mid_amount);
+	high_amount = toDB(high_amount);
+
+	bass.update(bass_amount);
+	mid.update(mid_amount);
+	high.update(high_amount);
+
 	//lets record the volume into an array
 	volHistory.push_back(getVol());
 	
@@ -51,10 +87,22 @@ void Audio::calc() {
 	}
 }
 
-float Audio::getBass() {
-	return bass.scale(0.0, 10, 0.0, 100);
+SmoothValue Audio::getBass() {
+	return bass;
+}
+
+SmoothValue Audio::getMid() {
+	return mid;
+}
+
+SmoothValue Audio::getHigh() {
+	return high;
 }
 
 float Audio::getVol() {
-	return volume.scale(0.0, 0.17, 0.0, 1.0);
+	return volume.scale();
+}
+
+float Audio::toDB(float amp) {
+	return 20 * log10(amp);
 }

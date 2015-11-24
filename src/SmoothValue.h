@@ -8,8 +8,16 @@ class SmoothValue {
 		void setup(float val);
 		void update(float val);
 		float getVal();
-		float scale(float oldMin, float oldMax, float newMin, float newMax);
+		float getMin();
+		float getMax();
+		float scale();
+		void setRange(float rmin, float rmax);
+		float testMin;
+		float testMax;
 	private:
 		float value;
+		float min;
+		float max;
+
 	
 };

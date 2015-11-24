@@ -17,8 +17,11 @@ class Audio {
 		
 		void update(float * input, int bufferSize);
 		void calc();
-		float getBass();
+		SmoothValue getBass();
+		SmoothValue getMid();
+		SmoothValue getHigh();
 		float getVol();
+		static float toDB(float amp);
 
 	private:
 		fft		myfft;
@@ -26,6 +29,9 @@ class Audio {
 
 		SmoothValue volume;
 		SmoothValue bass;
+		SmoothValue mid;
+		SmoothValue high;
+
 		float phase[BUFFER_SIZE];
 		float power[BUFFER_SIZE];
 		float magnitude[BUFFER_SIZE];

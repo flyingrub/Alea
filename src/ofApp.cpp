@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){	 
 	
-	ofSetVerticalSync(true);
+	ofSetVerticalSync(false);
 	ofEnableSmoothing();
 	ofSetFrameRate(60);
 	ofSetCircleResolution(3);
@@ -29,7 +29,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	audio.calc();
+	
 }
 
 //--------------------------------------------------------------
@@ -45,20 +45,12 @@ void ofApp::draw(){
 		ofTranslate(32, 100, 0);
 			
 		ofSetColor(225);
-		ofDrawBitmapString("Left Channel", 32, 18);
-		
+		ofDrawBitmapString("Average vol (0-100): " + ofToString(audio.getVol() * 100.0, 0), 32, 20);
+		ofDrawBitmapString("bass vol (0-100): " + ofToString(audio.getBass().scale() * 100.0, 0), 32, 40);
+		ofDrawBitmapString("mid vol (0-100): " + ofToString(audio.getMid().scale() * 100.0, 0), 32, 60);
+		ofDrawBitmapString("high vol (0-100): " + ofToString(audio.getHigh().scale() * 100.0, 0), 32, 80);
 		ofSetLineWidth(1);	
 		ofDrawRectangle(0, 0, 512, 200);
-
-		ofSetColor(41, 182, 246);
-		ofSetLineWidth(3);
-					
-			ofBeginShape();
-			for (unsigned int i = 0; i < audio.left.size(); i++){
-				ofVertex(i*2, 100 -audio.left[i]*180.0f);
-			}
-			ofEndShape(false);
-			
 		ofPopMatrix();
 	ofPopStyle();
 
@@ -115,17 +107,15 @@ void ofApp::draw(){
 		ofTranslate(544, 100, 0);
 			
 		ofSetColor(225);
-		ofDrawBitmapString("average vol (0-100): " + ofToString(audio.getVol() * 100.0, 0), 32, 20);
-		ofDrawBitmapString("magnitude vol (0-100): " + ofToString(audio.getBass(), 0), 32, 40);
 		ofDrawRectangle(0, 0, 400, 400);
 		
 		ofSetColor(41, 182, 246);
 		ofFill();
-		ofDrawCircle(200, 200, audio.getVol() * 200.0f);
+		//ofDrawCircle(200, 200, audio.getBass() * 100.0f + audio.getVol() * 50.0f);
 
 		ofSetColor(52, 52, 52);
 		ofFill();
-		ofDrawCircle(200, 200, audio.getVol()*150.0f);
+		//ofDrawCircle(200, 200, audio.getBass() * 100.0f);
 
 		ofPopMatrix();
 	ofPopStyle();
@@ -134,6 +124,7 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::audioIn(float * input, int bufferSize, int nChannels){
 	audio.update(input, bufferSize);
+	audio.calc();
 }
 
 void ofApp::beatDetected() {
