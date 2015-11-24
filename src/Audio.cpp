@@ -3,15 +3,9 @@
 Audio::Audio() {
 	left.assign(BUFFER_SIZE, 0.0);
 	right.assign(BUFFER_SIZE, 0.0);
-	volHistory.assign(912, 0.0);
 
 	data = new float[BUFFER_SIZE];
 
-	for (int i = 0; i < NUM_WINDOWS; i++) {
-		for (int j = 0; j < BUFFER_SIZE/2; j++) {
-			freq[i][j] = 0;
-		}
-	}
 	volume.setRange(0.0, 0.17);
 	bass.setRange(0, 30);
 	mid.setRange(-20, 20);
@@ -77,14 +71,6 @@ void Audio::calc() {
 	bass.update(bass_amount);
 	mid.update(mid_amount);
 	high.update(high_amount);
-
-	//lets record the volume into an array
-	volHistory.push_back(getVol());
-	
-	//if we are bigger the the size we want to record - lets drop the oldest value
-	if( volHistory.size() >= 912 ){
-		volHistory.erase(volHistory.begin(), volHistory.begin()+1);
-	}
 }
 
 SmoothValue Audio::getBass() {
@@ -99,8 +85,8 @@ SmoothValue Audio::getHigh() {
 	return high;
 }
 
-float Audio::getVol() {
-	return volume.scale();
+SmoothValue Audio::getVol() {
+	return volume;
 }
 
 float Audio::toDB(float amp) {

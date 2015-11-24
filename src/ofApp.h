@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxPostProcessing.h"
 #include "Audio.h"
+#include "ofBar.h"
 
 class ofApp : public ofBaseApp {
 	
@@ -31,4 +32,5 @@ class ofApp : public ofBaseApp {
 		ofSoundStream soundStream;
 		ofxPostProcessing post;
 		Audio audio;
+		ofBar bar;
 };

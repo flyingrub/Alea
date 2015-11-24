@@ -12,7 +12,6 @@ class Audio {
 		Audio();
 		vector <float> left;
 		vector <float> right;
-		vector <float> volHistory;
 		
 		
 		void update(float * input, int bufferSize);
@@ -20,7 +19,7 @@ class Audio {
 		SmoothValue getBass();
 		SmoothValue getMid();
 		SmoothValue getHigh();
-		float getVol();
+		SmoothValue getVol();
 		static float toDB(float amp);
 
 	private:

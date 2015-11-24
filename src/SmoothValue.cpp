@@ -4,10 +4,6 @@ SmoothValue::SmoothValue() {
 	value = 0;
 }
 
-void SmoothValue::setup(float val) {
-	value = val;
-}
-
 void SmoothValue::setRange(float rmin, float rmax) {
 	min = rmin;
 	max = rmax;
@@ -23,8 +19,7 @@ void SmoothValue::update(float val) {
 	}
 	value *= 0.93;
 	value += 0.07 * val;
-
-
+	threshold.compare(scale());
 }
 
 float SmoothValue::scale() {
@@ -33,4 +28,8 @@ float SmoothValue::scale() {
 
 float SmoothValue::getVal() {
 	return value;
+}
+
+Threshold SmoothValue::getThreshold() {
+	return threshold;
 }

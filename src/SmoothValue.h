@@ -1,23 +1,21 @@
 #pragma once
 #include "ofMain.h"
+#include "Threshold.h"
 
 class SmoothValue {
 
 	public:
 		SmoothValue();
-		void setup(float val);
 		void update(float val);
 		float getVal();
-		float getMin();
-		float getMax();
 		float scale();
 		void setRange(float rmin, float rmax);
-		float testMin;
-		float testMax;
+		Threshold getThreshold();
 	private:
 		float value;
 		float min;
 		float max;
+		Threshold threshold;
 
 	
 };
