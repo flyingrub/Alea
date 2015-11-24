@@ -1,8 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxPostProcessing.h"
+#include "Audio.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 	
 	public:
 		
@@ -21,27 +23,12 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 				
 		void audioIn(float * input, int bufferSize, int nChannels);
+
+	private:
+
 		void beatDetected();
-	
-		vector <float> left;
-		vector <float> right;
-		vector <float> volHistory;
-		
-		int 	bufferCounter;
-		int 	drawCounter;
-		
-		float smoothedVol;
-		float scaledVol;
-
-		float smoothedVolBass;
-		float scaledVolBass;
-
-		float decayRate;
-		float minThreshold;
-		float threshold;
-		float scaledThreshold;
-		float hold;
-		bool canBeat;
 
 		ofSoundStream soundStream;
+		ofxPostProcessing post;
+		Audio audio;
 };

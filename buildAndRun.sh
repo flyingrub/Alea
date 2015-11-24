@@ -5,4 +5,4 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
-make Debug -j7 && make RunDebug;
+make -j7 && make run;
