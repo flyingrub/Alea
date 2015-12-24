@@ -31,6 +31,8 @@ class Audio {
 		SmoothValue mid;
 		SmoothValue high;
 
+		float curVol;
+
 		float phase[BUFFER_SIZE];
 		float power[BUFFER_SIZE];
 		float magnitude[BUFFER_SIZE];

@@ -41,7 +41,7 @@ void ofBar::draw() {
 
 		ofDrawLine(400, 0, 400, -midiValue * 3.0f);
 		
-		if (audio->getVol().getThreshold().hold > 55) {
+		if (audio->getVol().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
 		if (audio->getVol().getThreshold().hold < 5) {
@@ -50,7 +50,7 @@ void ofBar::draw() {
 		ofSetHexColor(color);
 		ofDrawLine(0, -volThres * 3.0f, 0, -volThres * 3.0f + 5);
 
-		if (audio->getBass().getThreshold().hold > 55) {
+		if (audio->getBass().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
 		if (audio->getBass().getThreshold().hold < 5) {
@@ -58,7 +58,7 @@ void ofBar::draw() {
 		}
 		ofSetHexColor(color);
 		ofDrawLine(100, -bassThres * 3.0f, 100, -bassThres * 3.0f + 5);
-		if (audio->getMid().getThreshold().hold > 55) {
+		if (audio->getMid().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
 		if (audio->getMid().getThreshold().hold < 5) {
@@ -67,7 +67,7 @@ void ofBar::draw() {
 		ofSetHexColor(color);
 		ofDrawLine(200, -midThres * 3.0f, 200, -midThres * 3.0f + 5);
 
-		if (audio->getHigh().getThreshold().hold > 55) {
+		if (audio->getHigh().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
 		if (audio->getHigh().getThreshold().hold < 5) {

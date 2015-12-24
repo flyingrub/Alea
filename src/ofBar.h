@@ -13,5 +13,7 @@ class ofBar {
 	private:
 		Audio* audio;
 		Midi* midi;
+
+		int const BEAT = 25 - 5;
 		
 };

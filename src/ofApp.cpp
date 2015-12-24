@@ -42,6 +42,7 @@ void ofApp::draw(){
 	float bass = audio.getBass().scale() * 100.0;
 	float mid  = audio.getMid().scale() * 100.0;
 	float high = audio.getHigh().scale() * 100.0;
+	float hold = audio.getVol().getThreshold().hold;
 	
 	ofNoFill();
 
@@ -55,9 +56,9 @@ void ofApp::draw(){
 		ofDrawBitmapString("bass vol (0-100): " + ofToString(bass, 0), 32, 60);
 		ofDrawBitmapString("mid vol (0-100): " + ofToString(mid, 0), 32, 80);
 		ofDrawBitmapString("high vol (0-100): " + ofToString(high, 0), 32, 100);
-		ofDrawBitmapString("hold: " + ofToString(audio.getVol().getThreshold().hold, 0), 32, 120);
-		ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 140);
-		ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 160);
+		ofDrawBitmapString("hold: " + ofToString(hold, 0), 32, 160);
+		ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 120);
+		ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 140);
 		ofSetLineWidth(1);	
 		ofDrawRectangle(0, 0, 400, 180);
 		ofPopMatrix();

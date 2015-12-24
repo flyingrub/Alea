@@ -3,7 +3,7 @@
 Threshold::Threshold() {
 	threshold = 0;
 	firstTime = true;
-	history.assign(20, 0.0);
+	history.assign(HISTORY_SIZE, 0.0);
 	hold = 0;
 }
 
@@ -15,22 +15,22 @@ void Threshold::compare(float val) {
 	beat = false;
 	history.push_back(val);
 	
-	if( history.size() >= 20 ){
+	if(history.size() >= HISTORY_SIZE){
 		history.erase(history.begin(), history.begin()+1);
 	}
 
 	if (threshold < val) {
-		threshold = val;
-		hold = 60;
 		if (hold == 0) {
 			beat = true;
+			hold = HOLD_VALUE;
 		}
+		threshold = val;
 	} else {
 		if (hold > 0) {
 			hold--;
 		} else {
-			if (threshold > 0) {
-				threshold -= 0.01;
+			if (threshold > THRESHOLD_DIM_VLAUE) {
+				threshold -= THRESHOLD_DIM_VLAUE;
 			}
 		}
 	}

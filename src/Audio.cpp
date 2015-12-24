@@ -7,13 +7,13 @@ Audio::Audio() {
 	data = new float[BUFFER_SIZE];
 
 	volume.setRange(0.0, 0.17);
-	bass.setRange(0, 30);
-	mid.setRange(-20, 20);
-	high.setRange(-30, 5);
+	bass.setRange(20, 30);
+	mid.setRange(-20, 17);
+	high.setRange(-40, 5);
 }
 
 void Audio::update(float * input, int bufferSize) {
-	float curVol = 0.0;
+	curVol = 0.0;
 	
 	// samples are "interleaved"
 	int numCounted = 0;	
@@ -31,7 +31,6 @@ void Audio::update(float * input, int bufferSize) {
 	}
 	curVol /= (float)numCounted;
 	curVol = sqrt( curVol );
-	volume.update(curVol);
 }
 
 
@@ -71,6 +70,7 @@ void Audio::calc() {
 	bass.update(bass_amount);
 	mid.update(mid_amount);
 	high.update(high_amount);
+	volume.update(curVol);
 }
 
 SmoothValue Audio::getBass() {
