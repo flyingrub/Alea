@@ -1,13 +1,17 @@
 #pragma once
 #include "ofMain.h"
 #include "Audio.h"
+#include "Midi.h"
 
 class ofBar {
 
 	public:
 		ofBar();
+		void setup(Audio* a, Midi* m);
         void update();
-        void draw(Audio audio); 
+        void draw(); 
 	private:
+		Audio* audio;
+		Midi* midi;
 		
 };

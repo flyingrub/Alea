@@ -17,17 +17,22 @@ void ofApp::setup(){
 	
 	soundStream.printDeviceList();
 	//if you want to set a different device id 
-	soundStream.setDeviceID(4); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
+	soundStream.setDeviceID(5); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
 	soundStream.setup(this, 0, 2, 44100, BUFFER_SIZE, 4);
 
-	post.init(ofGetWidth(), ofGetHeight());
-	post.createPass<FxaaPass>();
-	post.createPass<BloomPass>();
+	midi.setup();
+
+	bar.setup(&audio, &midi);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	
+}
+
+//--------------------------------------------------------------
+void ofApp::exit(){
+	midi.exit();
 }
 
 //--------------------------------------------------------------
@@ -51,12 +56,14 @@ void ofApp::draw(){
 		ofDrawBitmapString("mid vol (0-100): " + ofToString(mid, 0), 32, 80);
 		ofDrawBitmapString("high vol (0-100): " + ofToString(high, 0), 32, 100);
 		ofDrawBitmapString("hold: " + ofToString(audio.getVol().getThreshold().hold, 0), 32, 120);
+		ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 140);
+		ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 160);
 		ofSetLineWidth(1);	
-		ofDrawRectangle(0, 0, 400, 140);
+		ofDrawRectangle(0, 0, 400, 180);
 		ofPopMatrix();
 	ofPopStyle();
 
-	bar.draw(audio);
+	bar.draw();
 }
 
 //--------------------------------------------------------------

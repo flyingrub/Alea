@@ -4,6 +4,7 @@
 #include "ofxPostProcessing.h"
 #include "Audio.h"
 #include "ofBar.h"
+#include "Midi.h"
 
 class ofApp : public ofBaseApp {
 	
@@ -12,6 +13,7 @@ class ofApp : public ofBaseApp {
 		void setup();
 		void update();
 		void draw();
+		void exit();
 		
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -32,5 +34,6 @@ class ofApp : public ofBaseApp {
 		ofSoundStream soundStream;
 		ofxPostProcessing post;
 		Audio audio;
+		Midi midi;
 		ofBar bar;
 };
