@@ -36,25 +36,26 @@ void Alea::draw() {
 	}
 
 	if (beat) {
-		//ofSetCircleResolution(ofRandom(3, 8));
+		ofSetCircleResolution(ofRandom(3, 8));
 	}
 
 	ofPushStyle();
 		ofPushMatrix();
-		ofFill();
+		ofNoFill();
+		ofSetLineWidth(2); 
 		ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
 		
-		
+		ofRotateZ(audio->getBass().getThreshold().beatAmount()*15);
 		ofSetColor(255 - beatcolor, beatcolor, 255);
-		ofDrawCircle(0, 0, ((bass + mid) /2 + vol) / 3 + high * ofGetWidth()/10);
+		ofDrawCircle(0, 0, high*2 + mid);
 
 		ofRotateZ(180);
 		ofSetColor(255 - beatcolor/2, 255 - beatcolor, 255);
-		ofDrawCircle(0, 0, + (bass + mid) /2 + vol * ofGetWidth()/10);
+		ofDrawCircle(0, 0, (bass + mid) /2 + vol * 2);
 
-		//ofRotateZ(180);
-		ofSetColor(255 - beatcolor, 255 - beatcolor/2, 255);
-		ofDrawCircle(0, 0, vol * ofGetWidth()/10);
+		ofRotateZ(90);
+		ofSetColor(100 - beatcolor, 200 - beatcolor/2, 255);
+		ofDrawCircle(0, 0, vol * 2);
 
 		ofPopMatrix();
 	ofPopStyle();

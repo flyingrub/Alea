@@ -26,8 +26,6 @@ void ofBar::draw() {
 	float midThres  = audio->getMid().getThreshold().getVal() * 100.0;
 	float highThres = audio->getHigh().getThreshold().getVal() * 100.0;
 
-	float midiValue = ofMap(midi->value, 0, 127, 0.0f, 1.0f, true) * 100.0;
-
 	ofPushStyle();
 		ofPushMatrix();
 		ofTranslate(50, 500, 0);
@@ -44,8 +42,6 @@ void ofBar::draw() {
 		ofDrawLine(pos1, 0, pos1, -bass * 3.0f);
 		ofDrawLine(pos2, 0, pos2, -mid * 3.0f);
 		ofDrawLine(pos3, 0, pos3, -high * 3.0f);
-
-		ofDrawLine(pos4, 0, pos4, -midiValue * 3.0f);
 		
 		// VOL THRES
 		if (audio->getVol().getThreshold().hold > BEAT) {

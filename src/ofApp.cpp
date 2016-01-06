@@ -64,8 +64,15 @@ void ofApp::draw(){
 		ofPopMatrix();
 	ofPopStyle();
 
-	bar.draw();
-	alea.draw();
+	if (midi.controller.getButton(0)) {
+		bar.draw();
+	}
+
+	if (midi.controller.getButton(1)) {
+		alea.draw();
+	}
+	
+	
 }
 
 //--------------------------------------------------------------

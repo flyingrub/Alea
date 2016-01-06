@@ -39,4 +39,5 @@ void Midi::newMidiMessage(ofxMidiMessage& msg) {
 	// make a copy of the latest message
 	value = msg.value;
 	control = msg.control;
+	controller.update(control, value);
 }

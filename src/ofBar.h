@@ -8,8 +8,8 @@ class ofBar {
 	public:
 		ofBar();
 		void setup(Audio* a, Midi* m);
-        void update();
-        void draw(); 
+		void update();
+		void draw(); 
 	private:
 		Audio* audio;
 		Midi* midi;

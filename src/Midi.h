@@ -1,6 +1,7 @@
 #pragma once
 #include "ofxMidi.h"
 #include "ofMain.h"
+#include "TinyControl.h"
 
 class Midi : public ofxMidiListener {
 
@@ -13,6 +14,10 @@ public:
 	
 	int value;
 	int control;
+	TinyControl controller;
 	
 	ofxMidiIn midiIn;
+
+private:
+
 };
