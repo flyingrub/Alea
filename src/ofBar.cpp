@@ -30,17 +30,24 @@ void ofBar::draw() {
 
 	ofPushStyle();
 		ofPushMatrix();
-		ofTranslate(100, 600, 0);
+		ofTranslate(50, 500, 0);
 		glLineWidth(50);
 		ofSetHexColor(0x2196f3);
+
+		int margin = 100;
+		int pos1 = margin * 1;
+		int pos2 = margin * 2;
+		int pos3 = margin * 3;
+		int pos4 = margin * 4;
 		
 		ofDrawLine(0, 0, 0, -vol * 3.0f);
-		ofDrawLine(100, 0, 100, -bass * 3.0f);
-		ofDrawLine(200, 0, 200, -mid * 3.0f);
-		ofDrawLine(300, 0, 300, -high * 3.0f);
+		ofDrawLine(pos1, 0, pos1, -bass * 3.0f);
+		ofDrawLine(pos2, 0, pos2, -mid * 3.0f);
+		ofDrawLine(pos3, 0, pos3, -high * 3.0f);
 
-		ofDrawLine(400, 0, 400, -midiValue * 3.0f);
+		ofDrawLine(pos4, 0, pos4, -midiValue * 3.0f);
 		
+		// VOL THRES
 		if (audio->getVol().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
@@ -50,6 +57,7 @@ void ofBar::draw() {
 		ofSetHexColor(color);
 		ofDrawLine(0, -volThres * 3.0f, 0, -volThres * 3.0f + 5);
 
+		// BASS THRES
 		if (audio->getBass().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
@@ -57,7 +65,9 @@ void ofBar::draw() {
 			color = 0xf44336;
 		}
 		ofSetHexColor(color);
-		ofDrawLine(100, -bassThres * 3.0f, 100, -bassThres * 3.0f + 5);
+		ofDrawLine(pos1, -bassThres * 3.0f, pos1, -bassThres * 3.0f + 5);
+		
+		// MID THRES
 		if (audio->getMid().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
@@ -65,8 +75,9 @@ void ofBar::draw() {
 			color = 0xf44336;
 		}
 		ofSetHexColor(color);
-		ofDrawLine(200, -midThres * 3.0f, 200, -midThres * 3.0f + 5);
+		ofDrawLine(pos2, -midThres * 3.0f, pos2, -midThres * 3.0f + 5);
 
+		// HIGH THRES
 		if (audio->getHigh().getThreshold().hold > BEAT) {
 			color = 0xd500f9;
 		}
@@ -74,7 +85,7 @@ void ofBar::draw() {
 			color = 0xf44336;
 		}
 		ofSetHexColor(color);
-		ofDrawLine(300, -highThres * 3.0f, 300, -highThres * 3.0f + 5);
+		ofDrawLine(pos3, -highThres * 3.0f, pos3, -highThres * 3.0f + 5);
 
 		ofPopMatrix();
 	ofPopStyle();

@@ -6,7 +6,6 @@ void ofApp::setup(){
 	ofSetVerticalSync(false);
 	ofEnableSmoothing();
 	ofSetFrameRate(60);
-	ofSetCircleResolution(3);
 	ofBackground(0, 0, 0);
 	
 	// 0 output channels, 
@@ -17,11 +16,12 @@ void ofApp::setup(){
 	
 	soundStream.printDeviceList();
 	//if you want to set a different device id 
-	soundStream.setDeviceID(5); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
+	soundStream.setDeviceID(4); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
 	soundStream.setup(this, 0, 2, 44100, BUFFER_SIZE, 4);
 
-	midi.setup();
+	midi.setup(1);
 
+	alea.setup(&audio, &midi);
 	bar.setup(&audio, &midi);
 }
 
@@ -51,11 +51,11 @@ void ofApp::draw(){
 		ofTranslate(2, 2, 0);
 			
 		ofSetColor(225);
-		ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 32, 20);
+		ofDrawBitmapString("Fps: " + ofToString((int)ofGetFrameRate()), 32, 20);
 		ofDrawBitmapString("Average vol (0-100): " + ofToString(vol, 0), 32, 40);
-		ofDrawBitmapString("bass vol (0-100): " + ofToString(bass, 0), 32, 60);
-		ofDrawBitmapString("mid vol (0-100): " + ofToString(mid, 0), 32, 80);
-		ofDrawBitmapString("high vol (0-100): " + ofToString(high, 0), 32, 100);
+		ofDrawBitmapString("Bass vol (0-100): " + ofToString(bass, 0), 32, 60);
+		ofDrawBitmapString("Mid vol (0-100): " + ofToString(mid, 0), 32, 80);
+		ofDrawBitmapString("High vol (0-100): " + ofToString(high, 0), 32, 100);
 		ofDrawBitmapString("hold: " + ofToString(hold, 0), 32, 160);
 		ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 120);
 		ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 140);
@@ -65,6 +65,7 @@ void ofApp::draw(){
 	ofPopStyle();
 
 	bar.draw();
+	alea.draw();
 }
 
 //--------------------------------------------------------------

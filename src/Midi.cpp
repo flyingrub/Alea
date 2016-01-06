@@ -6,13 +6,13 @@ Midi::Midi() {
 
 }
 
-void Midi::setup() {
+void Midi::setup(int port) {
 	// print input ports to console
 	midiIn.listPorts(); // via instance
 	//ofxMidiIn::listPorts(); // via static as well
 	
 	// open port by number (you may need to change this)
-	midiIn.openPort(2);
+	midiIn.openPort(port);
 	//midiIn.openPort("IAC Pure Data In");	// by name
 	//midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
 	

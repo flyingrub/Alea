@@ -5,6 +5,7 @@
 #include "Audio.h"
 #include "ofBar.h"
 #include "Midi.h"
+#include "Alea.h"
 
 class ofApp : public ofBaseApp {
 	
@@ -36,4 +37,5 @@ class ofApp : public ofBaseApp {
 		Audio audio;
 		Midi midi;
 		ofBar bar;
+		Alea alea;
 };

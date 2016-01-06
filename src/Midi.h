@@ -6,7 +6,7 @@ class Midi : public ofxMidiListener {
 
 public:
 	Midi();
-	void setup();
+	void setup(int port);
 	void exit();
 	
 	void newMidiMessage(ofxMidiMessage& eventArgs);
