@@ -13,7 +13,27 @@ void Alea::update() {
 
 }
 
+bool Alea::shouldDraw() {
+	int val = ofMap(midi->controller.getFader(0), 0, 127, 1, 30, true);
+	counter--;
+	if (counter == 0) {
+		counter = 60;
+	}
+
+	int timeOn = 60 / val;
+
+	return (counter / timeOn )% 2 == 0;
+}
+
 void Alea::draw() {
+	if (!shouldDraw()) {
+		return;
+	}
+	rotation += ofMap(midi->controller.getPotentiometer(0), 0, 127, -3, 3, true);
+	if (rotation >= 360) {
+		rotation -=360; 
+	}
+
 	float vol  = audio->getVol().scale() * 100.0;
 	float bass = audio->getBass().scale() * 100.0;
 	float mid  = audio->getMid().scale() * 100.0;
@@ -24,9 +44,7 @@ void Alea::draw() {
 	float midThres  = audio->getMid().getThreshold().getVal() * 100.0;
 	float highThres = audio->getHigh().getThreshold().getVal() * 100.0;
 
-	float midiValue = ofMap(midi->value, 0, 127, 0.0f, 1.0f, true) * 100.0;
-
-	bool beat = audio->getVol().getThreshold().isBeat() && audio->getVol().getThreshold().beatAmount() > 0.05f;
+	bool beat = audio->getBass().getThreshold().isBeat();
 
 	int beatcolor;
 	if (audio->getBass().getThreshold().beatAmount() > 0) {
@@ -44,16 +62,20 @@ void Alea::draw() {
 		ofNoFill();
 		ofSetLineWidth(2); 
 		ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
-		
-		ofRotateZ(audio->getBass().getThreshold().beatAmount()*15);
-		ofSetColor(255 - beatcolor, beatcolor, 255);
-		ofDrawCircle(0, 0, high*2 + mid);
 
-		ofRotateZ(180);
+		ofRotateZ(rotation + audio->getBass().getThreshold().beatAmount()*100);
 		ofSetColor(255 - beatcolor/2, 255 - beatcolor, 255);
-		ofDrawCircle(0, 0, (bass + mid) /2 + vol * 2);
+		ofDrawCircle(0, 0, bass * 4);
 
-		ofRotateZ(90);
+		ofRotateZ(90 - audio->getMid().getThreshold().beatAmount()*100);
+		ofSetColor(150 - beatcolor, 255 - beatcolor/2, 255);
+		ofDrawCircle(0, 0, mid * 1);
+		
+		ofRotateZ(90 + audio->getHigh().getThreshold().beatAmount()*100);
+		ofSetColor(255 - beatcolor, beatcolor, 255);
+		ofDrawCircle(0, 0, high * 3);
+
+		ofRotateZ(90 - audio->getHigh().getThreshold().beatAmount()*100);
 		ofSetColor(100 - beatcolor, 200 - beatcolor/2, 255);
 		ofDrawCircle(0, 0, vol * 2);
 

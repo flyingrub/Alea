@@ -46,23 +46,25 @@ void ofApp::draw(){
 	
 	ofNoFill();
 
-	ofPushStyle();
-		ofPushMatrix();
-		ofTranslate(2, 2, 0);
-			
-		ofSetColor(225);
-		ofDrawBitmapString("Fps: " + ofToString((int)ofGetFrameRate()), 32, 20);
-		ofDrawBitmapString("Average vol (0-100): " + ofToString(vol, 0), 32, 40);
-		ofDrawBitmapString("Bass vol (0-100): " + ofToString(bass, 0), 32, 60);
-		ofDrawBitmapString("Mid vol (0-100): " + ofToString(mid, 0), 32, 80);
-		ofDrawBitmapString("High vol (0-100): " + ofToString(high, 0), 32, 100);
-		ofDrawBitmapString("hold: " + ofToString(hold, 0), 32, 160);
-		ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 120);
-		ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 140);
-		ofSetLineWidth(1);	
-		ofDrawRectangle(0, 0, 400, 180);
-		ofPopMatrix();
-	ofPopStyle();
+	if (midi.controller.getButton(0)) {
+		ofPushStyle();
+			ofPushMatrix();
+			ofTranslate(2, 2, 0);
+				
+			ofSetColor(225);
+			ofDrawBitmapString("Fps: " + ofToString((int)ofGetFrameRate()), 32, 20);
+			ofDrawBitmapString("Average vol (0-100): " + ofToString(vol, 0), 32, 40);
+			ofDrawBitmapString("Bass vol (0-100): " + ofToString(bass, 0), 32, 60);
+			ofDrawBitmapString("Mid vol (0-100): " + ofToString(mid, 0), 32, 80);
+			ofDrawBitmapString("High vol (0-100): " + ofToString(high, 0), 32, 100);
+			ofDrawBitmapString("hold: " + ofToString(hold, 0), 32, 160);
+			ofDrawBitmapString("Value: " + ofToString(midi.value, 0), 32, 120);
+			ofDrawBitmapString("Control: " + ofToString(midi.control, 0), 32, 140);
+			ofSetLineWidth(1);	
+			ofDrawRectangle(0, 0, 400, 180);
+			ofPopMatrix();
+		ofPopStyle();
+	}
 
 	if (midi.controller.getButton(0)) {
 		bar.draw();

@@ -11,6 +11,9 @@ class Alea {
         void update();
         void draw(); 
 	private:
+		bool shouldDraw();
 		Audio* audio;
-		Midi* midi;	
+		Midi* midi;
+		int counter = 60;
+		int rotation = 0;
 };
