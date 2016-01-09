@@ -3,9 +3,9 @@
 TinyControl::TinyControl() {
 
 	for (int i = 0; i < NUMBER_OF_BUTTON; ++i) {
-		button[i] = false;
+		button[i] = true;
 		fader[i] = 0;
-		potentiometer[i] = 0;
+		potentiometer[i] = 63;
 	}
 }
 

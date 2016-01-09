@@ -15,5 +15,5 @@ class Alea {
 		Audio* audio;
 		Midi* midi;
 		int counter = 60;
-		int rotation = 0;
+		float rotation = 0.0f;
 };
