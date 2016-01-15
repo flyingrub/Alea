@@ -6,6 +6,7 @@
 #include "ofBar.h"
 #include "Midi.h"
 #include "Alea.h"
+#include "PreferenceApp.h"
 
 class ofApp : public ofBaseApp {
 	
@@ -27,6 +28,7 @@ class ofApp : public ofBaseApp {
 		void gotMessage(ofMessage msg);
 				
 		void audioIn(float * input, int bufferSize, int nChannels);
+		shared_ptr<PreferenceApp> gui;
 
 	private:
 
@@ -38,4 +40,5 @@ class ofApp : public ofBaseApp {
 		Midi midi;
 		ofBar bar;
 		Alea alea;
+		
 };

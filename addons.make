@@ -1,2 +1,3 @@
 ofxPostProcessing
 ofxMidi
+ofxGui
