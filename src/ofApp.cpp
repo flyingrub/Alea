@@ -95,6 +95,10 @@ void ofApp::keyPressed  (int key){
 	if( key == 'e' ){
 		soundStream.stop();
 	}
+
+	if( key == OF_KEY_RETURN){
+		ofToggleFullscreen();
+	}
 }
 
 //--------------------------------------------------------------
