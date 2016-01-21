@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxPostProcessing.h"
 #include "Audio.h"
-#include "ofBar.h"
 #include "Midi.h"
 #include "Alea.h"
 #include "PreferenceApp.h"
@@ -38,7 +37,6 @@ class ofApp : public ofBaseApp {
 		ofxPostProcessing post;
 		Audio audio;
 		Midi midi;
-		ofBar bar;
 		Alea alea;
 		
 };
