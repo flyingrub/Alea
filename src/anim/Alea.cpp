@@ -31,7 +31,7 @@ void Alea::draw() {
 	}
 	rotation += ofMap(midi->controller.getPotentiometer(0), 0, 127, -2.0f, 2.0f, true);
 	if (rotation >= 360) {
-		rotation -=360; 
+		rotation -=360;
 	}
 
 	float vol  = audio->getVol().scale() * 100.0;
@@ -48,7 +48,7 @@ void Alea::draw() {
 
 	int beatcolor;
 	if (audio->getBass().getThreshold().beatAmount() > 0) {
-		beatcolor = ofMap(audio->getBass().getThreshold().beatAmount(), 0.0f, 0.25f, 0, 122, true) + 
+		beatcolor = ofMap(audio->getBass().getThreshold().beatAmount(), 0.0f, 0.25f, 0, 122, true) +
 			ofMap(audio->getHigh().getThreshold().beatAmount(), 0.0f, 0.25f, 0, 123, true);
 	} else {
 		beatcolor = 0;
@@ -60,17 +60,17 @@ void Alea::draw() {
 	ofPushStyle();
 		ofPushMatrix();
 		ofNoFill();
-		ofSetLineWidth(2.5); 
+		ofSetLineWidth(2.5);
 		ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
 
 		int beatAmount = audio->getBass().getThreshold().beatAmount() * 100;
 		ofRotateZ(rotation + beatAmount);
-		ofSetColor(beatcolor +50, 100-beatcolor, beatcolor +100);
+		ofSetColor(beatcolor +50, 150-beatcolor, beatcolor +100);
 		while (beatAmount <= bass * 3) {
 			ofDrawCircle(0, 0, (bass * 3) - beatAmount);
 			beatAmount = beatAmount * 2 + 10;
 		}
-		
+
 		beatAmount = audio->getMid().getThreshold().beatAmount() * 50;
 		ofRotateZ(90 - beatAmount);
 		ofSetColor(150 - beatcolor, 255 - beatcolor/2, 255);

@@ -2,8 +2,8 @@
 
   fft.cpp
 
-  
-  This class is a C++ wrapper for original code 
+
+  This class is a C++ wrapper for original code
   written by Dominic Mazzoni in September 2000
 
   This file contains a few FFT routines, including a real-FFT
@@ -30,7 +30,7 @@
 
 **********************************************************************/
 
-#include "fft.h"	
+#include "fft.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -398,14 +398,14 @@ void WindowFunc(int whichFunction, int NumSamples, float *in)
 
 /* constructor */
 fft::fft() {
- 	
- 	
+
+
 }
 
 /* destructor */
 fft::~fft() {
- 	
- 	
+
+
 }
 
 /* Calculate the power spectrum */
@@ -413,13 +413,13 @@ void fft::powerSpectrum(int start, int half, float *data, int windowSize,float *
 	int i;
    int windowFunc = 3;
    float total_power = 0.0f;
-   
+
 	/* processing variables*/
    float *in_real = new float[windowSize];
    float *in_img = new float[windowSize];
    float *out_real = new float[windowSize];
    float *out_img = new float[windowSize];
-   
+
 	for (i = 0; i < windowSize; i++) {
       in_real[i] = data[start + i];
 	}
@@ -437,9 +437,9 @@ void fft::powerSpectrum(int start, int half, float *data, int windowSize,float *
    }
    /* calculate average power */
    *(avg_power) = total_power / (float) half;
-				
+
    delete[]in_real;
-   delete[]in_img;   
+   delete[]in_img;
    delete[]out_real;
    delete[]out_img;
 }
@@ -447,34 +447,34 @@ void fft::powerSpectrum(int start, int half, float *data, int windowSize,float *
 void fft::inversePowerSpectrum(int start, int half, int windowSize, float *finalOut,float *magnitude,float *phase) {
 	int i;
    int windowFunc = 3;
-   
+
 	/* processing variables*/
    float *in_real = new float[windowSize];
    float *in_img = new float[windowSize];
    float *out_real = new float[windowSize];
    float *out_img = new float[windowSize];
-	
+
 	/* get real and imag part */
-	for (i = 0; i < half; i++) {	
+	for (i = 0; i < half; i++) {
 		in_real[i] = magnitude[i]*cos(phase[i]);
 		in_img[i]  = magnitude[i]*sin(phase[i]);
 	}
-	
+
 	/* zero negative frequencies */
-	for (i = half; i < windowSize; i++) {	
+	for (i = half; i < windowSize; i++) {
 		in_real[i] = 0.0;
 		in_img[i] = 0.0;
 	}
-	
+
 	FFT(windowSize, 1, in_real, in_img, out_real, out_img); // second parameter indicates inverse transform
 	WindowFunc(windowFunc, windowSize, out_real);
-				
+
 	for (i = 0; i < windowSize; i++) {
 		finalOut[start + i] += out_real[i];
 	}
-			
+
    delete[]in_real;
-   delete[]in_img;   
+   delete[]in_img;
    delete[]out_real;
    delete[]out_img;
 }

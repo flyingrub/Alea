@@ -1,21 +1,20 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-void ofApp::setup(){	 
-	
-	ofSetVerticalSync(false);
+void ofApp::setup(){
+
+	ofSetVerticalSync(true);
 	ofEnableSmoothing();
-	ofSetFrameRate(60);
 	ofBackground(0, 0, 0);
 	ofSetEscapeQuitsApp(false);
-	
-	// 0 output channels, 
+
+	// 0 output channels,
 	// 2 input channels
 	// 44100 samples per second
 	// 256 samples per buffer
 	// 4 num buffers (latency)
 	soundStream.printDeviceList();
-	//if you want to set a different device id 
+	//if you want to set a different device id
 	soundStream.setDeviceID(5); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
 	soundStream.setup(this, 0, 2, 44100, BUFFER_SIZE, 4);
 
@@ -27,7 +26,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+
 }
 
 //--------------------------------------------------------------
@@ -39,12 +38,15 @@ void ofApp::exit(){
 void ofApp::draw(){
 	audio.calc();
 
+	if (gui->showFPS) {
+		ofDrawBitmapString("Fps: " + ofToString((int)ofGetFrameRate()), 32, 20);
+	}
 
 	if (midi.controller.getButton(1)) {
 		alea.draw();
 	}
-	
-	
+
+
 }
 
 //--------------------------------------------------------------
@@ -57,38 +59,38 @@ void ofApp::beatDetected() {
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed  (int key){ 
+void ofApp::keyPressed  (int key){
 	if( key == 's' ) {
 		soundStream.start();
 	}
-	
+
 	if( key == 'e' ) {
 		soundStream.stop();
 	}
 
-	if( key == OF_KEY_RETURN ) { 
+	if( key == OF_KEY_RETURN ) {
 		ofToggleFullscreen();
 	}
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){ 
-	
+void ofApp::keyReleased(int key){
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	
+
 }
 
 //--------------------------------------------------------------
@@ -107,7 +109,7 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 

@@ -12,8 +12,8 @@ class Audio {
 		Audio();
 		vector <float> left;
 		vector <float> right;
-		
-		
+
+
 		void update(float * input, int bufferSize);
 		void calc();
 		SmoothValue getBass();

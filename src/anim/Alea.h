@@ -9,7 +9,7 @@ class Alea {
 		Alea();
 		void setup(Audio* a, Midi* m);
         void update();
-        void draw(); 
+        void draw();
 	private:
 		bool shouldDraw();
 		Audio* audio;

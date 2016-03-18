@@ -14,11 +14,11 @@ Audio::Audio() {
 
 void Audio::update(float * input, int bufferSize) {
 	curVol = 0.0;
-	
-	// samples are "interleaved"
-	int numCounted = 0;	
 
-	//lets go through each sample and calculate the root mean square which is a rough way to calculate volume	
+	// samples are "interleaved"
+	int numCounted = 0;
+
+	//lets go through each sample and calculate the root mean square which is a rough way to calculate volume
 	for (int i = 0; i < bufferSize; i++){
 		left[i]		= input[i*2]*0.5;
 		right[i]	= input[i*2+1]*0.5;
@@ -44,7 +44,7 @@ void Audio::calc() {
 	int high_count = 0;
 
 	myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, data,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
-	
+
 
 	for (int i = 1; i < (int)(BUFFER_SIZE/2); i++){
 		if (i < 3) {

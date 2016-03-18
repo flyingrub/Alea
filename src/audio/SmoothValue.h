@@ -17,5 +17,5 @@ class SmoothValue {
 		float max;
 		Threshold threshold;
 
-	
+
 };

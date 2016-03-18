@@ -9,11 +9,12 @@ class ofBar {
 		ofBar();
 		void setup(Audio* a, Midi* m);
 		void update();
-		void draw(); 
+		void draw();
+		void drawOneBar(int pos, SmoothValue value);
 	private:
 		Audio* audio;
 		Midi* midi;
 
 		int const BEAT = 25 - 5;
-		
+
 };

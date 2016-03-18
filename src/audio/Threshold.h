@@ -22,5 +22,5 @@ class Threshold {
 		bool firstTime;
 		float threshold;
 		bool beat;
-		
+
 };

@@ -17,8 +17,7 @@ public:
 
 
 	ofParameterGroup parameters;
-	ofParameter<float> radius;
-	ofParameter<ofColor> color;
+	ofParameter<bool> showFPS;
 	ofxPanel gui;
 
 	Audio* audio;

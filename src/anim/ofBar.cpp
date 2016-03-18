@@ -13,75 +13,41 @@ void ofBar::update() {
 
 }
 
+void ofBar::drawOneBar(int pos, SmoothValue value) {
+	float amount = value.scale() * 100.0;
+	float amountThres  = value.getThreshold().getVal() * 100.0;
+
+	int margin = 100;
+	pos = pos * margin;
+
+	// Amount
+	ofSetColor(255);
+	ofFill();
+	ofDrawRectangle(pos, 0, 10, -amount * 3.0f);
+
+	// Threshold
+	if (audio->getVol().getThreshold().hold > BEAT) {
+		ofSetHexColor(0x18ffff);
+	}
+	ofDrawRectangle(pos, -amountThres * 3.0f - 2, 10, - 4);
+
+	// GUI
+	ofNoFill();
+	ofSetHexColor(0x18ffff);
+	ofDrawTriangle(pos - 10, 0, pos - 10, - 5, pos, 0);
+	ofDrawTriangle(pos - 10, - 155, pos - 10, - 145, pos, - 150);
+	ofDrawTriangle(pos - 10, - 300, pos - 10, - 295, pos, - 300);
+}
+
 void ofBar::draw() {
-	int color = 0xf44336;
-
-	float vol  = audio->getVol().scale() * 100.0;
-	float bass = audio->getBass().scale() * 100.0;
-	float mid  = audio->getMid().scale() * 100.0;
-	float high = audio->getHigh().scale() * 100.0;
-
-	float volThres  = audio->getVol().getThreshold().getVal() * 100.0;
-	float bassThres = audio->getBass().getThreshold().getVal() * 100.0;
-	float midThres  = audio->getMid().getThreshold().getVal() * 100.0;
-	float highThres = audio->getHigh().getThreshold().getVal() * 100.0;
-
 	ofPushStyle();
 		ofPushMatrix();
-		ofTranslate(50, 500, 0);
-		glLineWidth(50);
-		ofSetHexColor(0x2196f3);
+		glLineWidth(1);
 
-		int margin = 100;
-		int pos1 = margin * 1;
-		int pos2 = margin * 2;
-		int pos3 = margin * 3;
-		int pos4 = margin * 4;
-		
-		ofDrawLine(0, 0, 0, -vol * 3.0f);
-		ofDrawLine(pos1, 0, pos1, -bass * 3.0f);
-		ofDrawLine(pos2, 0, pos2, -mid * 3.0f);
-		ofDrawLine(pos3, 0, pos3, -high * 3.0f);
-		
-		// VOL THRES
-		if (audio->getVol().getThreshold().hold > BEAT) {
-			color = 0xd500f9;
-		}
-		if (audio->getVol().getThreshold().hold < 5) {
-			color = 0xf44336;
-		}
-		ofSetHexColor(color);
-		ofDrawLine(0, -volThres * 3.0f, 0, -volThres * 3.0f + 5);
-
-		// BASS THRES
-		if (audio->getBass().getThreshold().hold > BEAT) {
-			color = 0xd500f9;
-		}
-		if (audio->getBass().getThreshold().hold < 5) {
-			color = 0xf44336;
-		}
-		ofSetHexColor(color);
-		ofDrawLine(pos1, -bassThres * 3.0f, pos1, -bassThres * 3.0f + 5);
-		
-		// MID THRES
-		if (audio->getMid().getThreshold().hold > BEAT) {
-			color = 0xd500f9;
-		}
-		if (audio->getMid().getThreshold().hold < 5) {
-			color = 0xf44336;
-		}
-		ofSetHexColor(color);
-		ofDrawLine(pos2, -midThres * 3.0f, pos2, -midThres * 3.0f + 5);
-
-		// HIGH THRES
-		if (audio->getHigh().getThreshold().hold > BEAT) {
-			color = 0xd500f9;
-		}
-		if (audio->getHigh().getThreshold().hold < 5) {
-			color = 0xf44336;
-		}
-		ofSetHexColor(color);
-		ofDrawLine(pos3, -highThres * 3.0f, pos3, -highThres * 3.0f + 5);
+		this->drawOneBar(0, audio->getVol());
+		this->drawOneBar(1, audio->getBass());
+		this->drawOneBar(2, audio->getMid());
+		this->drawOneBar(3, audio->getHigh());
 
 		ofPopMatrix();
 	ofPopStyle();

@@ -14,7 +14,7 @@ void Threshold::compare(float val) {
 	}
 	beat = false;
 	history.push_back(val);
-	
+
 	if(history.size() >= HISTORY_SIZE){
 		history.erase(history.begin(), history.begin()+1);
 	}
