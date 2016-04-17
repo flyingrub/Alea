@@ -13,7 +13,7 @@ void ofBar::update() {
 
 }
 
-void ofBar::drawOneBar(int pos, SmoothValue value) {
+void ofBar::drawOne(int pos, SmoothValue value) {
 	float amount = value.scale() * 100.0;
 	float amountThres  = value.getThreshold().getVal() * 100.0;
 
@@ -44,10 +44,10 @@ void ofBar::draw() {
 		ofPushMatrix();
 		glLineWidth(1);
 
-		this->drawOneBar(0, audio->getVol());
-		this->drawOneBar(1, audio->getBass());
-		this->drawOneBar(2, audio->getMid());
-		this->drawOneBar(3, audio->getHigh());
+		this->drawOne(0, audio->getVol());
+		this->drawOne(1, audio->getBass());
+		this->drawOne(2, audio->getMid());
+		this->drawOne(3, audio->getHigh());
 
 		ofPopMatrix();
 	ofPopStyle();

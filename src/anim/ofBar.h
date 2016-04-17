@@ -10,7 +10,7 @@ class ofBar {
 		void setup(Audio* a, Midi* m);
 		void update();
 		void draw();
-		void drawOneBar(int pos, SmoothValue value);
+		void drawOne(int pos, SmoothValue value);
 	private:
 		Audio* audio;
 		Midi* midi;
