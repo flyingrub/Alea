@@ -44,8 +44,6 @@ void Alea::drawOne(float size, ofColor color, SmoothValue value) {
 		ofSetColor(color.clamp());
 		beatAmount = beatAmount * 2.6 + 10;
 	}
-
-
 }
 
 void Alea::draw() {
@@ -75,7 +73,7 @@ void Alea::draw() {
 			ofMap(audio->getHigh().getThreshold().beatAmount(), 0.0f, 0.25f, 0, 123, true);
 
 		this->drawOne(2, ofColor(100 - beatcolor, 200 - beatcolor/2, 255), audio->getVol());
-		this->drawOne(3.5, ofColor(255, beatcolor - 100, 255 - beatcolor), audio->getBass());
+		this->drawOne(3.5, ofColor(255, beatcolor - 100, 255 - beatcolor/2), audio->getBass());
 		this->drawOne(1, ofColor(150 - beatcolor, 255 - beatcolor/2, 255), audio->getMid());
 		this->drawOne(3, ofColor(255 - beatcolor, beatcolor, 255), audio->getHigh());
 

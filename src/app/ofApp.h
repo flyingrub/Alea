@@ -1,10 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxPostProcessing.h"
+//#include "ofxPostProcessing.h"
 #include "Audio.h"
 #include "Midi.h"
 #include "Alea.h"
+#include "PointCircle.h"
 #include "PreferenceApp.h"
 
 class ofApp : public ofBaseApp {
@@ -34,9 +35,11 @@ class ofApp : public ofBaseApp {
 		void beatDetected();
 
 		ofSoundStream soundStream;
-		ofxPostProcessing post;
+		//ofxPostProcessing post;
 		Audio audio;
 		Midi midi;
 		Alea alea;
+		PointCircle pointCircle;
+
 
 };

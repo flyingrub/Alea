@@ -15,12 +15,13 @@ void ofApp::setup(){
 	// 4 num buffers (latency)
 	soundStream.printDeviceList();
 	//if you want to set a different device id
-	soundStream.setDeviceID(5); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
+	soundStream.setDeviceID(4); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
 	soundStream.setup(this, 0, 2, 44100, BUFFER_SIZE, 4);
 
 	midi.setup(1);
 
 	alea.setup(&audio, &midi);
+	pointCircle.setup(&audio, &midi);
 	gui->setup(&audio, &midi);
 }
 
@@ -44,6 +45,7 @@ void ofApp::draw(){
 
 	if (midi.controller.getButton(1)) {
 		alea.draw();
+		pointCircle.draw();
 	}
 
 
