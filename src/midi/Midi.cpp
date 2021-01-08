@@ -8,7 +8,7 @@ Midi::Midi() {
 
 void Midi::setup(int port) {
 	// print input ports to console
-	midiIn.listPorts(); // via instance
+	midiIn.listInPorts(); // via instance
 	//ofxMidiIn::listPorts(); // via static as well
 
 	// open port by number (you may need to change this)
